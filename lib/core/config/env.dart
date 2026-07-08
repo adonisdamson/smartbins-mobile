@@ -21,7 +21,7 @@ class Env {
       dotenv.env['OSRM_BASE_URL'] ?? 'http://router.project-osrm.org';
 
   static String get supabaseUrl =>
-      dotenv.env['SUPABASE_URL'] ?? 'https://bvrzsssclvkqzqqffxda.supabase.co';
+      dotenv.env['SUPABASE_URL'] ?? 'https://kgzryxqpexppphkpyvjw.supabase.co';
 
   static String get supabaseAnonKey =>
       dotenv.env['SUPABASE_ANON_KEY'] ?? '';
