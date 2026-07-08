@@ -1,0 +1,123 @@
+name: smartbins_mobile
+description: "SmartBins Eco — Waste Marketplace (Ghana)"
+publish_to: 'none'
+# versionCode is overridden per-build in CI (--build-number=run number) so
+# every release installs as an update. Bump versionName for user-facing releases.
+version: 1.1.0+2
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State management
+  provider: ^6.1.2
+
+  # Networking
+  dio: ^5.5.0+1
+  socket_io_client: ^3.0.0
+
+  # Map Rendering (MapLibre GL for Vector Tiles)
+  maplibre_gl: ^0.26.0
+  latlong2: 0.9.1
+
+  # Location + GPS
+  geolocator: ^12.0.0
+
+  # Icon font for navigation/action controls
+  phosphor_flutter: ^2.1.0
+
+  # Fonts
+  google_fonts: ^6.2.1
+
+  # Firebase Core
+  firebase_core: ^3.1.1
+
+  # Auth (Firebase / JWT)
+  firebase_auth: ^5.1.1
+  google_sign_in: ^6.2.1
+  flutter_secure_storage: ^9.2.2
+
+  # Push notifications (FCM token registration + delivery)
+  firebase_messaging: ^15.1.3
+
+  # Crash reporting
+  firebase_crashlytics: ^4.1.3
+
+  # URL launcher (for calls, maps)
+  url_launcher: ^6.3.0
+
+  # Permissions
+  permission_handler: ^11.3.1
+
+  # Image picker (profile photo)
+  image_picker: ^1.1.2
+
+  # Onboarding / settings persistence
+  shared_preferences: ^2.3.2
+
+  # PDF generation + sharing (receipts)
+  pdf: ^3.11.1
+  share_plus: ^10.0.3
+  path_provider: ^2.1.4
+
+  # Charts (analytics / carbon tracking)
+  fl_chart: ^0.70.2
+
+  # Animations
+  lottie: ^3.1.2
+  flutter_animate: ^4.5.0
+  shimmer: ^3.0.0
+
+  # SVG rendering
+  flutter_svg: ^2.0.10+1
+
+  # Env vars
+  flutter_dotenv: ^5.1.0
+
+  # Supabase — Realtime chat + photo storage
+  supabase_flutter: ^2.8.4
+
+  # Background foreground service — keeps collector location stream alive when minimized
+  flutter_foreground_task: ^8.14.2
+
+  # Internationalization / formatting
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.14.3
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - .env
+    - assets/household_assets/branding/
+    - assets/household_assets/onboarding/
+    - assets/household_assets/illustrations/
+    - assets/household_assets/tracking/
+    - assets/household_assets/errors/
+    - assets/household_assets/empty_states/
+    - assets/household_assets/wallet/
+    - assets/household_assets/history/
+    - assets/household_assets/waste_categories/
+    - assets/household_assets/map_markers/
+    - assets/household_assets/avatars/
+    - assets/household_assets/lottie/
+    - assets/collector_assets/branding/
+    - assets/collector_assets/onboarding/
+    - assets/collector_assets/earnings/
+    - assets/collector_assets/empty_states/
+    - assets/collector_assets/errors/
+    - assets/collector_assets/icons/fleet/
+    - assets/collector_assets/map_markers/
+    - assets/collector_assets/avatars/
+    - assets/collector_assets/lottie/
+    - assets/collector_assets/workflow/

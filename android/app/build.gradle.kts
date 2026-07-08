@@ -1,0 +1,83 @@
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id("dev.flutter.flutter-gradle-plugin")
+    id("com.google.gms.google-services")
+}
+
+android {
+    // namespace must match the Kotlin package of MainActivity.kt (com.smartbins.smartbins_mobile)
+    // applicationId differs per flavor — that's intentional and correct
+    namespace = "com.smartbins.smartbins_mobile"
+    compileSdk = 36
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+
+    defaultConfig {
+        applicationId = "com.smartbins.eco"
+        // API 23+ required for AES_GCM cipher in flutter_secure_storage
+        // Android 6.0+ — covers 99%+ of active Ghana devices
+        minSdk = flutter.minSdkVersion
+        targetSdk = 36
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    flavorDimensions += "app"
+    productFlavors {
+        create("household") {
+            dimension = "app"
+            applicationId = "com.smartbins.eco"
+            resValue("string", "app_name", "SmartBins Eco")
+        }
+        create("collector") {
+            dimension = "app"
+            applicationId = "com.smartbins.collector"
+            resValue("string", "app_name", "SmartBins Collector")
+        }
+    }
+
+    signingConfigs {
+        create("release") {
+            // Keystore decoded from KEYSTORE_BASE64 secret by CI — placed at android/app/keystore.jks
+            storeFile = file("keystore.jks")
+            storePassword = System.getenv("KEYSTORE_PASSWORD") ?: ""
+            keyAlias     = System.getenv("KEYSTORE_ALIAS")    ?: "smartbins"
+            keyPassword  = System.getenv("KEY_PASSWORD")      ?: ""
+        }
+    }
+
+    buildTypes {
+        release {
+            // Use release keystore if it exists (CI); fall back to debug for local builds
+            signingConfig = if (file("keystore.jks").exists())
+                signingConfigs.getByName("release")
+            else
+                signingConfigs.getByName("debug")
+            isMinifyEnabled = false
+            isShrinkResources = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+}
