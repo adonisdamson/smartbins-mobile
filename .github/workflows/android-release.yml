@@ -25,11 +25,12 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: '21'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.38.1'
           channel: stable
           cache: true
 
@@ -45,6 +46,7 @@ jobs:
           GOOGLE_SERVICES_JSON_HOUSEHOLD: ${{ secrets.GOOGLE_SERVICES_JSON_HOUSEHOLD }}
         run: |
           test -n "$GOOGLE_SERVICES_JSON_HOUSEHOLD"
+          mkdir -p android/app/src/household
           echo "$GOOGLE_SERVICES_JSON_HOUSEHOLD" | base64 --decode > android/app/src/household/google-services.json
 
       - name: Decode google-services.json (collector)
@@ -52,6 +54,7 @@ jobs:
           GOOGLE_SERVICES_JSON_COLLECTOR: ${{ secrets.GOOGLE_SERVICES_JSON_COLLECTOR }}
         run: |
           test -n "$GOOGLE_SERVICES_JSON_COLLECTOR"
+          mkdir -p android/app/src/collector
           echo "$GOOGLE_SERVICES_JSON_COLLECTOR" | base64 --decode > android/app/src/collector/google-services.json
 
       - name: Decode release keystore
